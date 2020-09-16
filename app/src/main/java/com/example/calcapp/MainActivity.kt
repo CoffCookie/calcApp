@@ -123,11 +123,12 @@ class MainActivity : AppCompatActivity() {
 
     private fun calculation():Int {
         var i = 0
+        var result = 0
         while (i < opeList.size){
             if(opeList.get(i) == '/' || opeList.get(i) == '*'){
-                var result = 0
                 if(opeList.get(i) == '*') result = numList.get(i) * numList.get(i+1)
                 else result = numList.get(i) / numList.get(i+1)
+
                 numList.set(i,result)           //計算に使った一つ目の数を計算結果に置き換え
                 numList.removeAt(i+1)    //二つ目の数をリストから削除
                 opeList.removeAt(i)             //使い終わった演算子をリストから削除
@@ -139,7 +140,7 @@ class MainActivity : AppCompatActivity() {
             i++
         }
 
-        var result = 0
+        result = 0
         for(i in numList){
             println(i.javaClass.kotlin)
             println(i)

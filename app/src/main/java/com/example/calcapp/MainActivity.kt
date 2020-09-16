@@ -4,9 +4,11 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import kotlinx.android.synthetic.main.activity_main.*
 import java.lang.Exception
+import java.math.BigDecimal
+import kotlin.reflect.typeOf
 
 class MainActivity : AppCompatActivity() {
-    val numList = ArrayList<Int>()
+    val numList = ArrayList<Double>()
     val opeList = ArrayList<Char>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -77,25 +79,25 @@ class MainActivity : AppCompatActivity() {
         }
 
         plus.setOnClickListener{
-            calc_display.text = ""
+            calc_display.text = "${calc_display.text}+"
             addInput(inputNum,'+')
             inputNum = ""
         }
 
         minus.setOnClickListener{
-            calc_display.text = ""
+            calc_display.text = "${calc_display.text}-"
             addInput(inputNum,'-')
             inputNum = ""
         }
 
         multiply.setOnClickListener{
-            calc_display.text = ""
+            calc_display.text = "${calc_display.text}*"
             addInput(inputNum,'*')
             inputNum = ""
         }
 
         divid.setOnClickListener{
-            calc_display.text = ""
+            calc_display.text = "${calc_display.text}/"
             addInput(inputNum,'/')
             inputNum = ""
         }
@@ -103,9 +105,9 @@ class MainActivity : AppCompatActivity() {
         equel.setOnClickListener{
             calc_display.text = ""
             addInput(inputNum, '=')
-            val result= calculation().toString()
-            calc_display.text = result
-            inputNum = result
+            val result = calculation().toBigDecimal()
+            calc_display.text = result.stripTrailingZeros().toPlainString()
+            inputNum = ""
             numList.clear()
             opeList.clear()
         }
@@ -113,7 +115,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun addInput(inputNum:String, ope:Char){
         try {
-            var num = inputNum.toInt()
+            var num = inputNum.toDouble()
             numList.add(num)
             if (ope != '=') opeList.add(ope)
         }catch(e:Exception){
@@ -121,9 +123,9 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun calculation():Int {
+    private fun calculation():String {
         var i = 0
-        var result = 0
+        var result = 0.0
         while (i < opeList.size){
             if(opeList.get(i) == '/' || opeList.get(i) == '*'){
                 if(opeList.get(i) == '*') result = numList.get(i) * numList.get(i+1)
@@ -140,13 +142,12 @@ class MainActivity : AppCompatActivity() {
             i++
         }
 
-        result = 0
+        result = 0.0
         for(i in numList){
             println(i.javaClass.kotlin)
-            println(i)
             result += i
         }
-        println(result)
-        return result
+
+        return result.toString()
     }
 }

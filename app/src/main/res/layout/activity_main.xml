@@ -1,11 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_margin="0pt"
-    tools:context=".MainActivity">
+    tools:context=".MainActivity"
+    >
+
     <LinearLayout
         android:id="@+id/linearLayout_width"
         android:layout_width="match_parent"
@@ -13,6 +16,8 @@
         android:layout_margin="5dp"
         app:layout_constraintVertical_chainStyle="packed"
         android:orientation="vertical">
+
+
         <LinearLayout
             android:id="@+id/linearLayout1"
             android:layout_width="match_parent"
@@ -20,6 +25,7 @@
             android:layout_weight="1"
             android:layout_margin="10dp"
             android:orientation="horizontal">
+
 
             <TextView
                 android:id="@+id/calc_display"
@@ -64,12 +70,11 @@
                 android:text="3" />
 
             <Button
-                android:id="@+id/clear"
+                android:id="@+id/divid"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:text="C" />
-
+                android:text="÷" />
 
         </LinearLayout>
         <LinearLayout
@@ -101,12 +106,11 @@
                 android:text="6" />
 
             <Button
-                android:id="@+id/minus"
+                android:id="@+id/multiply"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:text="-" />
-
+                android:text="×" />
 
         </LinearLayout>
         <LinearLayout
@@ -139,12 +143,11 @@
                 android:text="9" />
 
             <Button
-                android:id="@+id/plus"
+                android:id="@+id/minus"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:text="+" />
-
+                android:text="-" />
 
         </LinearLayout>
         <LinearLayout
@@ -154,12 +157,13 @@
             android:layout_weight="1"
             android:layout_margin="10dp"
             android:orientation="horizontal">
+
             <Button
-                android:id="@+id/percent"
+                android:id="@+id/clear"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:text="%" />
+                android:text="C" />
 
             <Button
                 android:id="@+id/zero"
@@ -169,17 +173,20 @@
                 android:text="0" />
 
             <Button
-                android:id="@+id/dot"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:text="." />
-            <Button
                 android:id="@+id/equel"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:text="=" />
+
+
+
+            <Button
+                android:id="@+id/plus"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="+" />
         </LinearLayout>
     </LinearLayout>
 

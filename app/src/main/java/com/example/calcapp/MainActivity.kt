@@ -6,104 +6,116 @@ import kotlinx.android.synthetic.main.activity_main.*
 import java.lang.Exception
 
 class MainActivity : AppCompatActivity() {
-    val num_list = ArrayList<Int>()
-    val ope_list = ArrayList<Char>()
+    val numList = ArrayList<Int>()
+    val opeList = ArrayList<Char>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        set_calc_display()
+        setCalcDisplay()
     }
 
-    private fun set_calc_display(){
-        var input_num = ""
+    private fun setCalcDisplay(){
+        var inputNum = ""
 
         zero.setOnClickListener{
             if (calc_display.text == "0") calc_display.text = "0"
             else calc_display.text = "${calc_display.text}0"
-            input_num += "0"
+            inputNum += "0"
         }
         one.setOnClickListener{
             if (calc_display.text == "0") calc_display.text = "1"
             else calc_display.text = "${calc_display.text}1"
-            input_num += "1"
+            inputNum += "1"
         }
         two.setOnClickListener{
             if (calc_display.text == "0") calc_display.text = "2"
             else calc_display.text = "${calc_display.text}2"
-            input_num += "2"
+            inputNum += "2"
         }
         three.setOnClickListener{
             if (calc_display.text == "0") calc_display.text = "3"
             else calc_display.text = "${calc_display.text}3"
-            input_num += "3"
+            inputNum += "3"
         }
         four.setOnClickListener{
             if (calc_display.text == "0") calc_display.text = "4"
             else calc_display.text = "${calc_display.text}4"
-            input_num += "4"
+            inputNum += "4"
         }
         five.setOnClickListener{
             if (calc_display.text == "0") calc_display.text = "5"
             else calc_display.text = "${calc_display.text}5"
-            input_num += "5"
+            inputNum += "5"
         }
         six.setOnClickListener{
             if (calc_display.text == "0") calc_display.text = "6"
             else calc_display.text = "${calc_display.text}6"
-            input_num += "6"
+            inputNum += "6"
         }
         seven.setOnClickListener{
             if (calc_display.text == "0") calc_display.text = "7"
             else calc_display.text = "${calc_display.text}7"
-            input_num += "7"
+            inputNum += "7"
         }
         eight.setOnClickListener{
             if (calc_display.text == "0") calc_display.text = "8"
             else calc_display.text = "${calc_display.text}8"
-            input_num += "8"
+            inputNum += "8"
         }
         nine.setOnClickListener{
             if (calc_display.text == "0") calc_display.text = "9"
             else calc_display.text = "${calc_display.text}9"
-            input_num += "9"
+            inputNum += "9"
         }
 
         clear.setOnClickListener{
             calc_display.text = ""
-            input_num = ""
-            num_list.clear()
-            ope_list.clear()
+            inputNum = ""
+            numList.clear()
+            opeList.clear()
         }
 
         plus.setOnClickListener{
             calc_display.text = ""
-            add_input(input_num,'+')
-            input_num = ""
+            addInput(inputNum,'+')
+            inputNum = ""
         }
 
         minus.setOnClickListener{
             calc_display.text = ""
-            add_input(input_num,'-')
-            input_num = ""
+            addInput(inputNum,'-')
+            inputNum = ""
+        }
+
+        multiply.setOnClickListener{
+            calc_display.text = ""
+            addInput(inputNum,'*')
+            inputNum = ""
+        }
+
+        divid.setOnClickListener{
+            calc_display.text = ""
+            addInput(inputNum,'/')
+            inputNum = ""
         }
 
         equel.setOnClickListener{
             calc_display.text = ""
-            add_input(input_num, '=')
+            addInput(inputNum, '=')
             val result= calculation().toString()
             calc_display.text = result
-            input_num = result
-            num_list.clear()
-            ope_list.clear()
+            inputNum = result
+            numList.clear()
+            opeList.clear()
         }
     }
 
-    private fun add_input(input_num:String, ope:Char){
+    private fun addInput(inputNum:String, ope:Char){
         try {
-            var num = input_num.toInt()
-            num_list.add(num)
-            if (ope != '=') ope_list.add(ope)
+            var num = inputNum.toInt()
+            numList.add(num)
+            if (ope != '=') opeList.add(ope)
         }catch(e:Exception){
             calc_display.text = "Numeric Error"
         }
@@ -111,16 +123,24 @@ class MainActivity : AppCompatActivity() {
 
     private fun calculation():Int {
         var i = 0
-        while (i < ope_list.size){
-            if (ope_list.get(i) == '-') {
-                ope_list.set(i, '+')
-                num_list.set(i + 1, num_list.get(i + 1) * -1) //引かれる数をマイナスにしてあとでまとめて足す
+        while (i < opeList.size){
+            if(opeList.get(i) == '/' || opeList.get(i) == '*'){
+                var result = 0
+                if(opeList.get(i) == '*') result = numList.get(i) * numList.get(i+1)
+                else result = numList.get(i) / numList.get(i+1)
+                numList.set(i,result)           //計算に使った一つ目の数を計算結果に置き換え
+                numList.removeAt(i+1)    //二つ目の数をリストから削除
+                opeList.removeAt(i)             //使い終わった演算子をリストから削除
+                i--                             //リストの次の要素が一つ手前に来たのでiを一つ戻す
+            } else if (opeList.get(i) == '-') {
+                opeList.set(i, '+')
+                numList.set(i + 1, numList.get(i + 1) * -1) //引かれる数をマイナスにしてあとでまとめて足す
             }
             i++
         }
 
-        var result:Int = 0
-        for(i in num_list){
+        var result = 0
+        for(i in numList){
             println(i.javaClass.kotlin)
             println(i)
             result += i
